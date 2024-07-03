@@ -13,3 +13,18 @@ insert into events(id, event_name, description, location, event_date_time, organ
         (201, 'CHIVIDO2024', 'Wedding program', 'Oriental Hotel', '2024-07-03 18:00:00', 100),
         (202, 'WWE RAW', 'Wrestling Match', 'Boxing ring', '2024-07-03 18:00:00', 100),
         (203, 'RCCG Convention', 'Church Convention', 'Lagos Ibadan Expressway', '2024-07-03 18:00:00', 103);
+
+insert into guests(id, first_name, last_name, event_id) values
+        (300, 'Dayo', 'Akinyemi', 200),
+        (301, 'Tolu', 'Akinyemi', 200),
+        (302, 'Tobi', 'Akinyemi', 200),
+        (303, 'Abbey', 'Akinyemi', 200),
+        (304, 'Bali', 'Akinyemi', 200),
+        (305, 'Chichi', 'Akinyemi', 200),
+        (306, 'Chichi', 'Akinyemi', 203),
+        (307, 'Chichi', 'Akinyemi', 203);
+
+insert into tickets(id, type, price, event_id) values
+        (400, 'REGULAR', 5000, 201),
+        (401, 'VIP', 15000, 201),
+        (402, 'VVIP', 50000, 201);

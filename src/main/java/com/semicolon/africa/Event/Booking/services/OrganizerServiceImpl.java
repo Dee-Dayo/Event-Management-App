@@ -3,9 +3,10 @@ package com.semicolon.africa.Event.Booking.services;
 import com.semicolon.africa.Event.Booking.data.models.Event;
 import com.semicolon.africa.Event.Booking.data.models.Organizer;
 import com.semicolon.africa.Event.Booking.data.repositories.OrganizerRepository;
-import com.semicolon.africa.Event.Booking.dto.requests.CreateEventRequest;
-import com.semicolon.africa.Event.Booking.dto.requests.CreateOrganizerRequest;
+import com.semicolon.africa.Event.Booking.dto.requests.*;
+import com.semicolon.africa.Event.Booking.dto.responses.AddTicketResponse;
 import com.semicolon.africa.Event.Booking.dto.responses.CreateEventResponse;
+import com.semicolon.africa.Event.Booking.dto.responses.CreateGuestResponse;
 import com.semicolon.africa.Event.Booking.dto.responses.CreateOrganizerResponse;
 import com.semicolon.africa.Event.Booking.exceptions.OrganizerAlreadyExistsException;
 import com.semicolon.africa.Event.Booking.exceptions.OrganizerNotFoundException;
@@ -24,6 +25,8 @@ public class OrganizerServiceImpl implements OrganizerService {
     private final PasswordEncoder passwordEncoder;
     private final OrganizerRepository organizerRepository;
     private final EventService eventService;
+    private final GuestService guestService;
+    private final TicketService ticketService;
 
     @Override
     public CreateOrganizerResponse register(CreateOrganizerRequest request) {
@@ -47,6 +50,24 @@ public class OrganizerServiceImpl implements OrganizerService {
     @Override
     public List<Event> getEventsFor(long organizerId) {
         return organizerRepository.findEventsBy(organizerId);
+    }
+
+    @Override
+    public CreateGuestResponse addGuestToEvent(Long eventId, CreateGuestRequest createGuestRequest) {
+        Event event = eventService.findEventBy(eventId);
+        return guestService.register(event, createGuestRequest);
+    }
+
+    @Override
+    public AddTicketResponse addTicket(Long eventId, AddTicketRequest addTicketRequest) {
+        Event event = eventService.findEventBy(eventId);
+        return ticketService.createTicket(event, addTicketRequest);
+    }
+
+    @Override
+    public String addMultipleTicket(long eventId, AddMultipleTickets addMultipleTickets) {
+        Event event = eventService.findEventBy(eventId);
+        return ticketService.createMultipleTickets(event, addMultipleTickets);
     }
 
     private Organizer findById(Long organizerId) {
